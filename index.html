@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Calcolo Codice Fiscale</title>
+    <script src="Code/script.js"></script>
+    <link rel="stylesheet" href="Style/style.css">
+</head>
+<body>
+
+<h1>Calcolo codice fiscale</h1>
+
+<form id="cod">
+
+    <label>Cognome</label><br>
+    <input type="text" id="cognome" class="grafica" required><br><br>
+
+    <label>Nome</label><br>
+    <input type="text" id="nome" class="grafica" required><br><br>
+
+    <label>Sesso</label><br>
+    <select id="sesso" class="grafica" required>
+        <option value=""></option>
+        <option value="M">M</option>
+        <option value="F">F</option>
+    </select><br><br>
+
+    <label>File codici catastali</label><br>
+    <input type="file" id="cat1" class="grafica" onchange="showFile(this)" required><br><br>
+
+    <label>Comune di nascita</label><br>
+    <input type="text" id="comune" class="grafica" disabled><br><br>
+
+    <label>Data di nascita</label><br>
+    <input type="date" id="data" class="grafica" required><br><br>
+
+    <button type="button"
+        class="grafica"
+        onclick="controllo(
+            document.getElementById('cognome').value,
+            document.getElementById('nome').value,
+            document.getElementById('sesso').value,
+            document.getElementById('cat1').files[0],
+            document.getElementById('comune').value,
+            document.getElementById('data'),
+            document.getElementById('parag')
+        )">
+        GENERA CODICE FISCALE
+    </button>
+
+</form>
+
+<p id="parag"></p>
+
+</body>
+</html>

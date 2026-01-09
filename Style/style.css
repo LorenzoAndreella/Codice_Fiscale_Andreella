@@ -1,0 +1,16 @@
+body {
+    background-color: rgb(176, 218, 255);
+    padding: 3px;
+    font-family: Verdana;
+}
+
+.grafica {
+    border-radius: 1px;
+    border: 2px solid black;
+    margin: 5px;
+    font-family: Verdana;
+}
+
+button {
+    padding: 7px;
+}

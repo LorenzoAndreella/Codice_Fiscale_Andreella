@@ -86,12 +86,12 @@ function controllo() {
     }
 
     let codice = [];    //array codice fiscale
-    codice = cogn(codice, n0);
-    codice = nom(codice, n1);
-    codice = annmes(codice, n5);
-    codice = gg(codice, n5, n2);
-    codice = codicecat(codice, n3, n4);
-    codice = ultima(codice);
+    cogn(codice, n0);
+    nom(codice, n1);
+    annmes(codice, n5);
+    gg(codice, n5, n2);
+    codicecat(codice, n3, n4);
+    ultima(codice);
 
     parag.innerHTML = "Il tuo codice fiscale: " + codice.join(""); //stampa codice fiscale
 }
@@ -148,53 +148,13 @@ function nom(codice, n1) {
         temp.push("X");
     }
     codice.push(temp[0], temp[1], temp[2]);
-    return codice;
+    return;
 }
 //anno e mese 
 function annmes(codice, n5) {
     codice.push(n5[n5.length-8], n5[n5.length-7]); //anno
-    switch (parseInt(n5[n5.length-5] + n5[n5.length-4])){ //switch che trasforma mese in rispettivo carattere
-        case 1:
-            codice.push("A");
-            break;
-        case 2:
-            codice.push("B");
-            break;
-        case 3:
-            codice.push("C");
-            break;
-        case 4:
-            codice.push("D");
-            break;
-        case 5:
-            codice.push("E");
-            break;
-        case 6:
-            codice.push("H");
-            break;
-        case 7:
-            codice.push("L");
-            break;
-        case 8:
-            codice.push("M");
-            break;
-        case 9:
-            codice.push("P");
-            break;
-        case 10:
-            codice.push("R");
-            break;
-        case 11:
-            codice.push("S");
-            break;
-        case 12:
-            codice.push("T");
-            break;
-        default:    
-            alert("ERRORE");
-            return;
-    }
-    return codice;
+    codice.push(String.fromCharCode(parseInt(n5[n5.length-5] + n5[n5.length-4]) + 64));
+    return;
 }
 //giorno
 function gg(codice, n5, n2){
@@ -211,46 +171,23 @@ function gg(codice, n5, n2){
         giornostr = giorno.toString();
         codice.push(giornostr[0],giornostr[1]);
     }
-    return codice;
+    return;
 }
 //codice catastale
 function codicecat(codice, n3, n4) {
     codice.push(n3);
     codice.push(n4[0], n4[1], n4[2]);
-    return codice;
+    return;
 }
 //ultima lettera di controllo
 function ultima(codice) {
     let somma =0;
     for (let i=0; i<15; i++) {
         if ((i%2)!==0) {
-            switch (codice[i]) { //switch dispari
-                case "0": case "A": somma += 0; break;
-                case "1": case "B": somma += 1; break;
-                case "2": case "C": somma += 2; break;
-                case "3": case "D": somma += 3; break;
-                case "4": case "E": somma += 4; break;
-                case "5": case "F": somma += 5; break;
-                case "6": case "G": somma += 6; break;
-                case "7": case "H": somma += 7; break;
-                case "8": case "I": somma += 8; break;
-                case "9": case "J": somma += 9; break;
-                case "K": somma += 10; break;
-                case "L": somma += 11; break;
-                case "M": somma += 12; break;
-                case "N": somma += 13; break;
-                case "O": somma += 14; break;
-                case "P": somma += 15; break;
-                case "Q": somma += 16; break;
-                case "R": somma += 17; break;
-                case "S": somma += 18; break;
-                case "T": somma += 19; break;
-                case "U": somma += 20; break;
-                case "V": somma += 21; break;
-                case "W": somma += 22; break;
-                case "X": somma += 23; break;
-                case "Y": somma += 24; break;
-                case "Z": somma += 25; break;
+            if (!isNaN(parseInt(codice[i]))) {
+                somma += parseInt(codice[i]);
+            } else {
+            somma += parseInt(codice[i].charCodeAt()) - 65;
             }
         } else { //switch pari
             switch (codice[i]) {
@@ -285,36 +222,9 @@ function ultima(codice) {
     }
 
     somma = somma%26; //resto della divisione per 26
-
-    switch (somma) { //lettera per ogni resto
-        case 0: somma = "A"; break;
-        case 1: somma = "B"; break;
-        case 2: somma = "C"; break;
-        case 3: somma = "D"; break;
-        case 4: somma = "E"; break;
-        case 5: somma = "F"; break;
-        case 6: somma = "G"; break;
-        case 7: somma = "H"; break;
-        case 8: somma = "I"; break;
-        case 9: somma = "J"; break;
-        case 10: somma = "K"; break;
-        case 11: somma = "L"; break;
-        case 12: somma = "M"; break;
-        case 13: somma = "N"; break;
-        case 14: somma = "O"; break;
-        case 15: somma = "P"; break;
-        case 16: somma = "Q"; break;
-        case 17: somma = "R"; break;
-        case 18: somma = "S"; break;
-        case 19: somma = "T"; break;
-        case 20: somma = "U"; break;
-        case 21: somma = "V"; break;
-        case 22: somma = "W"; break;
-        case 23: somma = "X"; break;
-        case 24: somma = "Y"; break;
-        case 25: somma = "Z"; break;
-    }
+    somma += 65;
+    somma = String.fromCharCode(somma);
 
     codice.push(somma);
-    return codice;
+    return;
 }
